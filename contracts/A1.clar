@@ -1,30 +1,27 @@
+ ;;The project
+ ;; contract have write for exercise
 
-;; title: A1
-;; version:
-;; summary:
-;; description:
+(define-constant contract-owner tx-sender)
 
-;; traits
-;;
+(define-constant price u100000);; = 1 STX
 
-;; token definitions
-;; 
+(define-data-var total-posts uint u0)
 
-;; constants
-;;
+(define-map posts principal (string-utf8 500))
 
-;; data vars
-;;
+(define-read-only (get-total-posts)
+    (var-get total-posts)
+)
 
-;; data maps
-;;
+(define-read-only (get-post (user principal))
+    (map-get? posts user)
+)
 
-;; public functions
-;;
-
-;; read only functions
-;;
-
-;; private functions
-;;
-
+(define-public (write-post (messages (string-utf8 500)))
+    (begin
+        (try! (stx-transfer? price tx-sender contract-owner)
+        (map-set posts tx-sender message)
+        (var-set total-posts (+ (var-get total-posts) u1))
+        (ok "SUCCESS")    
+    )
+)
