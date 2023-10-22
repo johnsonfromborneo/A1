@@ -19,7 +19,7 @@
 
 (define-public (write-post (messages (string-utf8 500)))
     (begin
-        (try! (stx-transfer? price tx-sender contract-owner)
+        (try! (stx-transfer? price tx-sender contract-owner))
         (map-set posts tx-sender message)
         (var-set total-posts (+ (var-get total-posts) u1))
         (ok "SUCCESS")    
