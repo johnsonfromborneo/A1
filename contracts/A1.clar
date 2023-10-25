@@ -17,7 +17,7 @@
     (map-get? posts user)
 )
 
-(define-public (write-post (messages (string-utf8 500)))
+(define-public (write-post (message (string-utf8 500)))
     (begin
         (try! (stx-transfer? price tx-sender contract-owner))
         (map-set posts tx-sender message)
